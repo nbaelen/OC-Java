@@ -16,7 +16,8 @@ public class StreamFile {
 
         System.out.println("\nLiens en .fr dans la liste donnée");
         try(Stream<String> sf = Files.lines(Paths.get(fileName))){
-            List<Object> list = sf.filter(x -> x.contains(".fr"))
+            List<Object> list = sf.parallel()
+                    .filter(x -> x.contains(".fr"))
                     .collect(Collectors.toList());
             System.out.println(list);
 
