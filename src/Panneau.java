@@ -2,17 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Panneau extends JPanel {
+
+    private int posX = -50;
+    private int posY = -50;
+
     public void paintComponent(Graphics g) {
-        System.out.println("Je suis éxécutée !");
+        g.setColor(Color.blue);
+        g.fillOval(posX, posY, 50, 50);
+    }
 
-        /*
-        int x1 = this.getWidth()/2 - 75;
-        int y1 = this.getHeight()/2 - 75;
-        g.fillOval(x1,y1, 75, 75);
-        */
+    public int getPosX() {
+        return posX;
+    }
 
-        int x1 = this.getWidth()/4;
-        int y1 = this.getHeight()/4;
-        g.drawOval(x1, y1, this.getWidth()/2, this.getHeight()/2);
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 }
