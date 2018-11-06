@@ -30,33 +30,47 @@ public class Bouton extends JButton implements MouseListener {
 
     public void mouseExited(MouseEvent event) {
         try {
-            img = ImageIO.read(new File("jaune.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void mouseClicked (MouseEvent event) {
-        try {
-            img = ImageIO.read(new File("orange.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void mouseReleased (MouseEvent event) {
-        try {
             img = ImageIO.read(new File("vert.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void mouseEntered (MouseEvent event) {
+    public void mouseClicked (MouseEvent event) {
 
     }
 
-    public void mousePressed (MouseEvent event) {
+    public void mouseReleased (MouseEvent event) {
+        if((event.getY() > 0 && event.getY() < this.getHeight()) && (event.getX() > 0 && event.getX() < this.getWidth())){
+            try {
+                img = ImageIO.read(new File("orange.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //Si on se trouve à l'extérieur, on dessine le fond par défaut
+        else{
+            try {
+                img = ImageIO.read(new File("vert.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public void mouseEntered (MouseEvent event) {
+        try {
+            img = ImageIO.read(new File("jaune.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mousePressed (MouseEvent event) {
+        try {
+            img = ImageIO.read(new File("jaune.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
