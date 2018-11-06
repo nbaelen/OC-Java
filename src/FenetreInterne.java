@@ -11,11 +11,14 @@ import javax.swing.JPanel;
 public class FenetreInterne extends JFrame{
 
     private Panneau pan = new Panneau();
-    private JButton bouton = new JButton("bouton 1");
-    private JButton bouton2 = new JButton("bouton 2");
     private JPanel container = new JPanel();
-    private JLabel label = new JLabel("Le JLabel");
-    private int compteur = 0;
+    private JLabel label = new JLabel();
+    private JButton bouton = new JButton("On");
+    private JButton bouton2 = new JButton("Off");
+    private int x, y;
+    private boolean backX, backY;
+    private boolean animated = true;
+
 
     public FenetreInterne(){
         this.setTitle("Animation");
@@ -30,6 +33,7 @@ public class FenetreInterne extends JFrame{
         //Ce sont maintenant nos classes internes qui écoutent nos boutons
         bouton.addActionListener(new BoutonListener());
         bouton2.addActionListener(new Bouton2Listener());
+        bouton.setEnabled(false);
 
         JPanel south = new JPanel();
         south.add(bouton);
@@ -45,15 +49,14 @@ public class FenetreInterne extends JFrame{
         go();
     }
 
-    private void go(){
-        //Cette méthode ne change pas
-    }
-
     //Classe écoutant notre premier bouton
     class BoutonListener implements ActionListener{
         //Redéfinition de la méthode actionPerformed()
         public void actionPerformed(ActionEvent e) {
-            label.setText("Vous avez cliqué sur le bouton 1");
+            animated = true;
+            bouton.setEnabled(false);
+            bouton2.setEnabled(true);
+            go();
         }
     }
 
@@ -61,7 +64,34 @@ public class FenetreInterne extends JFrame{
     class Bouton2Listener implements ActionListener{
         //Redéfinition de la méthode actionPerformed()
         public void actionPerformed(ActionEvent e) {
-            label.setText("Vous avez cliqué sur le bouton 2");
+            animated = false;
+            bouton.setEnabled(true);
+            bouton2.setEnabled(false);
+        }
+    }
+
+    private void go(){
+        System.out.println("go");
+        x = pan.getPosX();
+        y = pan.getPosY();
+
+        while(this.animated){
+            System.out.println("go");
+            if(x < 1)backX = false;
+            if(x > pan.getWidth()-50)backX = true;
+            if(y < 1)backY = false;
+            if(y > pan.getHeight()-50)backY = true;
+            if(!backX)pan.setPosX(++x);
+            else pan.setPosX(--x);
+            if(!backY) pan.setPosY(++y);
+            else pan.setPosY(--y);
+            pan.repaint();
+
+            try {
+                Thread.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
